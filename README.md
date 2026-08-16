@@ -287,7 +287,7 @@ Advanced users who created symlinks do not need to recopy these files after upda
   Claude Code permissions for read-only Cortex MCP status tools.
 
 - [`.codex/config.toml`](.codex/config.toml)  
-  Main Codex settings, including its model, permissions, and network access.
+  Main Codex settings with permissions, and network access.
 
 - [`.codex/agents/code-reviewer.toml`](.codex/agents/code-reviewer.toml)  
   Review-agent settings for Codex.
