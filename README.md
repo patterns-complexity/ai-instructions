@@ -11,7 +11,7 @@ It supports Codex and Claude Code.
 1. From your project's root, add this repository as a Git submodule:
 
    ```sh
-   git submodule add <shared-instructions-repository-url> .ai-instructions
+   git submodule add git@github.com:patterns-complexity/ai-instructions.git .ai-instructions
    ```
 
 2. In your project, confirm that only the submodule reference and `.gitmodules` file are staged:
@@ -88,6 +88,8 @@ It supports Codex and Claude Code.
 
 ## If you use Explore or Plan in Claude Code
 
+> **Advanced option:** You can create symlinks instead of copies for these agent files. They then use the version in `.ai-instructions/` automatically after the submodule updates. Use this only when your project does not need local changes to the files.
+
 Claude Code’s built-in Explore and Plan agents do not load the instructions in your project’s `CLAUDE.md`.
 
 1. In your project, check whether these files already exist:
@@ -97,22 +99,24 @@ Claude Code’s built-in Explore and Plan agents do not load the instructions in
 
 2. From your project's root, run only the command for a file that is missing:
 
-   > **Important:** If either file already exists in your project, do not run its symlink command. Compare it with the matching file in the shared repository at `.ai-instructions/.claude/agents/` and copy any wanted settings manually.
+   > **Important:** If either file already exists in your project, do not run its copy command. Compare it with the matching file in the shared repository at `.ai-instructions/.claude/agents/` and copy any wanted settings manually.
 
    ```sh
    # Safe to run even if the folder already exists.
    mkdir -p .claude/agents
 
    # Run only if .claude/agents/project-explore.md is missing.
-   ln -s ../../.ai-instructions/.claude/agents/project-explore.md .claude/agents/project-explore.md
+   cp .ai-instructions/.claude/agents/project-explore.md .claude/agents/project-explore.md
 
    # Run only if .claude/agents/project-plan.md is missing.
-   ln -s ../../.ai-instructions/.claude/agents/project-plan.md .claude/agents/project-plan.md
+   cp .ai-instructions/.claude/agents/project-plan.md .claude/agents/project-plan.md
    ```
 
 3. Restart Claude Code after adding the agents to your project. Claude Code may delegate to them automatically. To invoke one explicitly, mention its name in your prompt or use `@agent-project-explore` or `@agent-project-plan`.
 
 ## [Recommended but optional] Code reviewer agents
+
+> **Advanced option:** You can create symlinks instead of copies for the Codex or Claude Code reviewer files below. They then use the version in `.ai-instructions/` automatically after the submodule updates. Use this only when your project does not need local changes to the files.
 
 ### Codex
 
@@ -133,17 +137,17 @@ To use them, Codex needs these files in your project:
 
 2. From your project's root, run only the command for a file that is missing:
 
-   > **Important:** If either file already exists in your project, do not run its symlink command. Compare it with the matching file in the shared repository at `.ai-instructions/.codex/` and copy any wanted settings manually.
+   > **Important:** If either file already exists in your project, do not run its copy command. Compare it with the matching file in the shared repository at `.ai-instructions/.codex/` and copy any wanted settings manually.
 
    ```sh
    # Safe to run even if the folder already exists.
    mkdir -p .codex/agents
 
    # Run only if .codex/config.toml is missing.
-   ln -s ../.ai-instructions/.codex/config.toml .codex/config.toml
+   cp .ai-instructions/.codex/config.toml .codex/config.toml
 
    # Run only if .codex/agents/code-reviewer.toml is missing.
-   ln -s ../../.ai-instructions/.codex/agents/code-reviewer.toml .codex/agents/code-reviewer.toml
+   cp .ai-instructions/.codex/agents/code-reviewer.toml .codex/agents/code-reviewer.toml
    ```
 
 3. In your project's `AGENTS.md`, add the following text:
@@ -171,7 +175,7 @@ To use them, Claude Code needs these files in your project:
    - `.claude/agents/code-reviewer.md`
    - `.claude/settings.local.json`
 
-2. Keep your project's `.claude/settings.local.json` out of version control. In your project's `.gitignore`, add this line before creating the symlink. Create `.gitignore` if it does not exist:
+2. Keep your project's `.claude/settings.local.json` out of version control. In your project's `.gitignore`, add this line before copying the file. Create `.gitignore` if it does not exist:
 
    ```gitignore
    .claude/settings.local.json
@@ -179,23 +183,65 @@ To use them, Claude Code needs these files in your project:
 
 3. From your project's root, run only the command for a file that is missing:
 
-   > **Important:** If either file already exists in your project, do not run its symlink command. Compare it with the matching file in the shared repository at `.ai-instructions/.claude/` and copy any wanted settings manually.
+   > **Important:** If either file already exists in your project, do not run its copy command. Compare it with the matching file in the shared repository at `.ai-instructions/.claude/` and copy any wanted settings manually.
 
    ```sh
    # Safe to run even if the folder already exists.
    mkdir -p .claude/agents
 
    # Run only if .claude/agents/code-reviewer.md is missing.
-   ln -s ../../.ai-instructions/.claude/agents/code-reviewer.md .claude/agents/code-reviewer.md
+   cp .ai-instructions/.claude/agents/code-reviewer.md .claude/agents/code-reviewer.md
 
    # Run only if .claude/settings.local.json is missing.
-   ln -s ../.ai-instructions/.claude/settings.local.json .claude/settings.local.json
+   cp .ai-instructions/.claude/settings.local.json .claude/settings.local.json
    ```
 
 4. In your project's `CLAUDE.md`, add this line:
 
    ```markdown
    @.ai-instructions/CODE_REVIEWER_INSTRUCTIONS.md
+   ```
+
+## Update the shared instructions
+
+The copied files do not update by themselves. When a newer shared-instructions version is available, update the submodule, review the changes, then copy the files again.
+
+1. From your project's root, update the submodule to its latest configured remote version:
+
+   ```sh
+   git submodule update --remote --recursive .ai-instructions
+   ```
+
+2. Review the shared-instruction changes and commit the updated submodule reference when you are ready:
+
+   ```sh
+   git -C .ai-instructions log --oneline HEAD@{1}..HEAD
+   git add .ai-instructions
+   git commit -m "Update shared AI instructions"
+   ```
+
+3. Compare each copied project file with its matching source in `.ai-instructions/`. Copy a source file again only when you want to adopt its changes. Do not overwrite local project-specific changes accidentally.
+
+### Update Codex files
+
+Advanced users who created symlinks do not need to recopy these files after updating the submodule.
+
+   ```sh
+   # Recopy only files that have no local project-specific changes.
+   cp .ai-instructions/.codex/config.toml .codex/config.toml
+   cp .ai-instructions/.codex/agents/code-reviewer.toml .codex/agents/code-reviewer.toml
+   ```
+
+### Update Claude Code files
+
+Advanced users who created symlinks do not need to recopy these files after updating the submodule.
+
+   ```sh
+   # Recopy only files that have no local project-specific changes.
+   cp .ai-instructions/.claude/agents/code-reviewer.md .claude/agents/code-reviewer.md
+   cp .ai-instructions/.claude/agents/project-explore.md .claude/agents/project-explore.md
+   cp .ai-instructions/.claude/agents/project-plan.md .claude/agents/project-plan.md
+   cp .ai-instructions/.claude/settings.local.json .claude/settings.local.json
    ```
 
 ## What is included
