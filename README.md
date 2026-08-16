@@ -49,7 +49,7 @@ The standard includes:
 1. Clone your project:
 
    ```sh
-   git clone <project-repo-url>
+   git clone git@github.com:patterns-complexity/ai-instructions.git
    ```
 
 2. From your project's root, initialize the submodule after cloning or after pulling a commit that adds or updates the submodule:
