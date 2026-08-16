@@ -1,9 +1,7 @@
 # Development workflow
 
 ## Workflow
-
-- The top-level agent implements every feature.
-- Before any change, review `./docs/user` (if present) for the application's full scope and future features.
+- Check `./.ai-instructions/docs/technology` for rules and conventions. You are required to follow them, and to learn them before starting work. If you find a rule that is seems wrong for the project, raise it with the user before starting work.
 - Derive quality gates from version-controlled manifests, lockfiles, tool config, task runners, and CI — use
   their pinned commands/versions; never assume a language, build system, package manager, or analysis tool.
 - During implementation, run applicable fast checks (formatting, parsing, linting, type checking, other
@@ -18,7 +16,10 @@
   suppressions; keep any unavoidable suppression narrow and explain its safety. Don't swap quality tools
   just to satisfy this workflow. If a check can't run or has a pre-existing failure, report its exact
   command, affected scope, and failure evidence.
-- Don't write technology documentation before implementation.
+
+
+## IMPORTANT
+- If you find that the main repository has code review subagents (in `.codex` or `.claude`) you are required to run them roughly every 800 changed lines and before risky refactors. After you make fixes, run the code review subagents again to ensure that your changes are acceptable.
 
 ## Engineering principles
 
@@ -26,7 +27,5 @@
 - When an answer depends on, or would be meaningfully improved by, online information, search it out.
   Weigh only highly reputable sources the relevant specialist community accepts as trustworthy; disregard
   the rest.
-- Put configurable parameters in an `.env` file. Don't add a variable that's inferable from a simpler one;
-  abstract a variable out only when doing so still leaves the user with full control over the result.
 - Prove requested functionality with tests. 100% code coverage isn't required; 100% requirement and result
   coverage is.

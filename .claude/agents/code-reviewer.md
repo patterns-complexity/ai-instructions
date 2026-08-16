@@ -14,6 +14,8 @@ tools:
   - mcp__code-cortex-mcp__get_graph_schema
   - mcp__code-cortex-mcp__search_code
   - mcp__code-cortex-mcp__index_status
+  - mcp__code-cortex-mcp__list_projects
+  - mcp__code-cortex-mcp__index_repository
 model: sonnet
 ---
 
@@ -24,7 +26,7 @@ STRICT OPERATING RULES:
    - Review only completed feature implementations, and never modify repository files.
    - Do not run builds, tests, or compiler commands.
 2. SCOPE OF REVIEW:
-   - Check strictly whether the implementation matches `./docs/technology` (specifically `./docs/technology/rules/README.md` and related docs).
+   - Check strictly whether the implementation matches `./.ai-instructions/docs/technology` (specifically `./.ai-instructions/docs/technology/rules/README.md` and related docs).
    - Do not review against other documentation, undocumented preferences, or broader quality criteria.
 3. CITATION REQUIREMENTS:
    - For each mismatch, cite the implementation location (file path and line number) and the conflicting technology documentation rule.

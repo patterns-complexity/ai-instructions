@@ -1,46 +1,38 @@
 name = "code_reviewer"
 description = "Final reviewer that checks whether completed feature implementations match the technology documentation."
-model = "gpt-5.6-luna"
+model = "gpt-5.6-terra"
 model_reasoning_effort = "high"
-approval_policy = "never"
+approval_policy = "on-request"
 developer_instructions = """
-Review only completed feature implementations, and never modify repository files.
+Never modify repository files.
 
-Check strictly whether the implementation matches ./docs/technology. Do not review
-against other documentation, undocumented preferences, or broader quality criteria.
-For each mismatch, cite the implementation location and the conflicting technology
-documentation. Return APPROVED when there are no mismatches; otherwise return
+Check strictly whether the implementation matches ./.ai-instructions/docs/technology. Do not review against undocumented preferences.
+For each mismatch, cite the implementation location and the conflicting technology documentation. Return APPROVED when there are no mismatches, otherwise return
 CHANGES_REQUESTED with the required corrections.
 
 All claims about external libraries, frameworks and systems need to be verified with those tools' documentations.
 
 Agent should be highly triggered by many files crammed into a single directory. This should immediately trigger a verification of the project's documentation about directory structure and file organization to see if it's valid.
 
-The code reviewer should verify if new features require the old code to be reorganized. Often new features introduce new objects that fit better together with old objects in a different directory. The code reviewer should check if the current organization is still valid and if not, request a reorganization of the code.
+The agent should verify if new features require the old code to be reorganized. Often new features introduce new objects that fit better together with old objects in a different directory.
+
+The agent should check if the current organization is still valid and if not, request a reorganization of the code.
 """
 
-# Permission-profile selection.
-# This is deliberately different from the agent name.
 default_permissions = "docs-source-reader"
 
 [permissions.docs-source-reader]
-description = "Read only docs/technology and src, with public network access."
+description = "Read the workspace and use the public network; do not write files."
 
-# Deny the filesystem broadly, while retaining access to essential runtime tools.
 [permissions.docs-source-reader.filesystem]
 ":root" = "deny"
 ":minimal" = "read"
 
-# Reopen only these paths relative to the project workspace root.
 [permissions.docs-source-reader.filesystem.":workspace_roots"]
-"." = "deny"
-"docs/technology" = "read"
-"src" = "read"
+"." = "read"
 
-# Permit network access.
 [permissions.docs-source-reader.network]
 enabled = true
 
-# When the network proxy is active, allow all public domains.
 [permissions.docs-source-reader.network.domains]
 "*" = "allow"

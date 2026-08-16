@@ -1,13 +1,19 @@
 #:schema https://developers.openai.com/codex/config-schema.json
 
 # Default model for the repository's top-level Codex agent.
-model = "gpt-5.6-terra"
-model_reasoning_effort = "high"
 default_permissions = "workspace-network"
-approval_policy = "never"
+approval_policy = "on-request"
 
 [permissions.workspace-network]
-extends = ":workspace"
+description = "Write the main project workspace and read the shared AI documentation."
+
+[permissions.workspace-network.filesystem]
+":root" = "deny"
+":minimal" = "read"
+
+[permissions.workspace-network.filesystem.":workspace_roots"]
+"." = "write"
+".ai-instructions/docs" = "read"
 
 [permissions.workspace-network.network]
 enabled = true

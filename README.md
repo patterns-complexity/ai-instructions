@@ -4,6 +4,16 @@ This repository contains shared instructions for AI coding tools. Add it to a pr
 
 It supports Codex and Claude Code.
 
+## What you get
+
+Use this repository when you want to adopt its opinionated engineering standard for AI-assisted development. It gives you a ready-made set of rules and agent configurations instead of requiring you to write and maintain that standard yourself.
+
+The standard includes:
+
+- Shared working rules covering detailed investigation, trusted research when outside information matters, and tests for requested results.
+- An optional Cortex MCP instruction file for projects that already use Cortex. It tells the AI which Cortex tools to use for code discovery and when ordinary text search is acceptable.
+- Optional settings for a second AI to review completed changes without editing them.
+
 ## Add these instructions to a project
 
 ### Add this repository as a Git submodule
