@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__code-cortex-mcp__index_status",
+      "mcp__code-cortex-mcp__get_architecture",
+      "mcp__code-cortex-mcp__list_projects"
+    ]
+  }
+}
