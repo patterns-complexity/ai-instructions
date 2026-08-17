@@ -11,7 +11,7 @@ Use this repository when you want to adopt its opinionated engineering standard 
 The standard includes:
 
 - Shared working rules covering detailed investigation, trusted research when outside information matters, and tests for requested results.
-- An optional Cortex MCP instruction file for projects that already use Cortex. It tells the AI which Cortex tools to use for code discovery and when ordinary text search is acceptable.
+- An optional Codebase Memory MCP instruction file for projects that already use Codebase Memory. It tells the AI which Codebase Memory tools to use for code discovery and when ordinary text search is acceptable.
 - Optional settings for a second AI to review completed changes without editing them.
 
 ## Add these instructions to a project
@@ -72,12 +72,12 @@ The standard includes:
    Also follow the shared engineering workflow and ruleset at `.ai-instructions/AI_INSTRUCTIONS.md` and `.ai-instructions/docs/technology/rules/README.md`.
    ```
 
-3. If Cortex MCP is already configured in your project, replace the text from step 2 with this version:
+3. If Codebase Memory MCP is already configured in your project, replace the text from step 2 with this version:
 
    ```markdown
    ## Shared instructions
 
-   Also follow the shared engineering workflow and ruleset at `.ai-instructions/AI_INSTRUCTIONS.md` and `.ai-instructions/docs/technology/rules/README.md`. Always use the Cortex MCP tools for code discovery, as described in `.ai-instructions/MCP_CORTEX_USAGE.md`.
+   Also follow the shared engineering workflow and ruleset at `.ai-instructions/AI_INSTRUCTIONS.md` and `.ai-instructions/docs/technology/rules/README.md`. Always use the Codebase Memory MCP tools for code discovery, as described in `.ai-instructions/MCP_CODEBASE_MEMORY_USAGE.md`.
    ```
 
 #### Claude Code
@@ -90,10 +90,10 @@ The standard includes:
    @.ai-instructions/AI_INSTRUCTIONS.md
    ```
 
-3. If Cortex MCP is already configured in your project, also add this line:
+3. If Codebase Memory MCP is already configured in your project, also add this line:
 
    ```markdown
-   @.ai-instructions/MCP_CORTEX_USAGE.md
+   @.ai-instructions/MCP_CODEBASE_MEMORY_USAGE.md
    ```
 
 ## If you use Explore or Plan in Claude Code
@@ -259,8 +259,8 @@ Advanced users who created symlinks do not need to recopy these files after upda
 - [`AI_INSTRUCTIONS.md`](AI_INSTRUCTIONS.md)  
   The main workflow and engineering rules.
 
-- [`MCP_CORTEX_USAGE.md`](MCP_CORTEX_USAGE.md)  
-  Instructions for using Cortex MCP to find and inspect code. Use this only in projects that have Cortex MCP.
+- [`MCP_CODEBASE_MEMORY_USAGE.md`](MCP_CODEBASE_MEMORY_USAGE.md)  
+  Instructions for using Codebase Memory MCP to find and inspect code. Use this only in projects that have Codebase Memory MCP.
 
 - [`CODE_REVIEWER_INSTRUCTIONS.md`](CODE_REVIEWER_INSTRUCTIONS.md)  
   Instructions for using the code reviewer agent. Use this only in projects that configure a code reviewer agent.
@@ -284,7 +284,7 @@ Advanced users who created symlinks do not need to recopy these files after upda
   Project planning agent settings for Claude Code.
 
 - [`.claude/settings.local.json`](.claude/settings.local.json)  
-  Claude Code permissions for read-only Cortex MCP status tools.
+  Claude Code permissions for read-only Codebase Memory MCP status tools.
 
 - [`.codex/config.toml`](.codex/config.toml)  
   Main Codex settings with permissions, and network access.
